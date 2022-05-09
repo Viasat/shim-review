@@ -68,7 +68,7 @@ Please create your shim binaries starting with the 15.5 shim release tar file: h
 This matches https://github.com/rhboot/shim/releases/tag/15.5 and contains the appropriate gnu-efi source.
 
 -------------------------------------------------------------------------------
-See CMakeLists.txt, GIT_TAG "15.5".
+Yes, see CMakeLists.txt, GIT_TAG "15.5".
 
 -------------------------------------------------------------------------------
 ### URL for a repo that contains the exact code which was built to get this binary:
@@ -81,7 +81,7 @@ https://github.com/viasat/shim-review
 `VENDOR_CERT_FILE=viasatuk.der`
 - PAE is signed by Viasat UK.
 
-`DEFAULT_LOADER=\\\\\\\\paex64.efi`
+`DEFAULT_LOADER=\\\\\\\\\\\\\\\\paex64.efi`
 - Shim shall load PAE only.
 
 -------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ New vendor certificate. Updated SHIM to version 15.5.
 -------------------------------------------------------------------------------
 ### What is the SHA256 hash of your final SHIM binary?
 -------------------------------------------------------------------------------
-1b0351b7439bc3ef01bd470dca31ccde0cfb8d9384fb49d3c5af606c81540cf7  BOOTX64.EFI
+1b0351b7439bc3ef01bd470dca31ccde0cfb8d9384fb49d3c5af606c81540cf7
 
 -------------------------------------------------------------------------------
 ### How do you manage and protect the keys used in your SHIM?
