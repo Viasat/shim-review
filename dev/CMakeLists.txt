@@ -52,7 +52,7 @@ endif()
 # thus allowing us to easily pick up improvements in the future.
 ExternalProject_Add(${PACKAGE_NAME}
 	GIT_REPOSITORY https://github.com/rhinstaller/shim.git
-	GIT_TAG "15.5"
+	GIT_TAG "15.6"
 	GIT_SHALLOW 1
 	GIT_CONFIG advice.detachedHead=false
 	LOG_BUILD 1

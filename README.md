@@ -47,6 +47,8 @@ Viasat provides secure data protection for government and defence agencies aroun
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
 
+Our PGP keys have been published to the PGP Global Directory at https://keyserver.pgp.com/ and can be found with an advanced search for "Email Address contains viasat.uk.com".
+
 -------------------------------------------------------------------------------
 ### Who is the secondary contact for security updates, etc.?
 -------------------------------------------------------------------------------
@@ -61,14 +63,16 @@ well known in the Linux community.)
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
 
--------------------------------------------------------------------------------
+Our PGP keys have been published to the PGP Global Directory at https://keyserver.pgp.com/ and can be found with an advanced search for "Email Address contains viasat.uk.com".
+
+--------------------------------------------------------------------------------
 ### Were these binaries created from the 15.6 shim release tar?
 Please create your shim binaries starting with the 15.6 shim release tar file: https://github.com/rhboot/shim/releases/download/15.6/shim-15.6.tar.bz2
 
 This matches https://github.com/rhboot/shim/releases/tag/15.6 and contains the appropriate gnu-efi source.
 
 -------------------------------------------------------------------------------
-Yes, see CMakeLists.txt, GIT_TAG "15.5".
+Yes, see CMakeLists.txt, GIT_TAG "15.6".
 
 -------------------------------------------------------------------------------
 ### URL for a repo that contains the exact code which was built to get this binary:
@@ -168,12 +172,12 @@ This should include logs for creating the buildroots, applying patches, doing th
 -------------------------------------------------------------------------------
 ### What changes were made since your SHIM was last signed?
 -------------------------------------------------------------------------------
-New vendor certificate. Updated SHIM to version 15.5.
+New vendor certificate. Updated SHIM to version 15.6.
 
 -------------------------------------------------------------------------------
 ### What is the SHA256 hash of your final SHIM binary?
 -------------------------------------------------------------------------------
-1b0351b7439bc3ef01bd470dca31ccde0cfb8d9384fb49d3c5af606c81540cf7
+00e581dd2555990e92e426b850f7962e115750537678bb8eec150783d546bd51
 
 -------------------------------------------------------------------------------
 ### How do you manage and protect the keys used in your SHIM?
@@ -194,12 +198,12 @@ SHIM:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,1,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.viasat,1,Viasat UK,shim,15.5,mailto:secalert:viasat.uk.com
+shim.viasat,1,Viasat UK,shim,15.6,mailto:secalert:viasat.uk.com
 ```
 PAE:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-pae,1,Viasat UK,pae,2.0.0,mailto:secalert:viasat.uk.com
+viasat.pae,1,Viasat UK,pae,2.0.0,mailto:secalert:viasat.uk.com
 ```
 
 -------------------------------------------------------------------------------
@@ -240,4 +244,7 @@ No Linux kernel.
 -------------------------------------------------------------------------------
 ### Add any additional information you think we may need to validate this shim.
 -------------------------------------------------------------------------------
-None.
+Notable comments from previous submission:
++ The `_redhat` and `_viasat` versions are built and compared to each other because we followed [the example Dockerfile](https://github.com/rhboot/shim-review/blob/main/examples/Dockerfile.ubuntu). 
++ The build product `_viasat/INSTALL/shimx64.efi` is exported from the Docker image and tagged as an artifact in our VCS as `BOOTX64.EFI`. The build is then ran again to compare the build product against the artifact `data/BOOTX64.EFI` to ensure the integrity of the product.
++ `shimx64.efi` is presented at the repository root by convention for Red Hat. Our build system starts at `dev/` with the `Dockerfile`.
