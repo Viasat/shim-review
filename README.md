@@ -35,11 +35,6 @@ Viasat provides secure data protection for government and defence agencies aroun
 
 -------------------------------------------------------------------------------
 ### Who is the primary contact for security updates, etc.?
-The security contacts need to be verified before the shim can be accepted. For subsequent requests, contact verification is only necessary if the security contacts or their PGP keys have changed since the last successful verification.
-
-An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
-You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
-
 -------------------------------------------------------------------------------
 - Name: SecAlert, Viasat
 - Position: Responsible Disclosure
@@ -142,7 +137,7 @@ No Linux kernel.
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
 ### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
 -------------------------------------------------------------------------------
-Our embedded CA certificate is used to verify the PAE binary.
+Our embedded CA certificate (viasatuk.der) is used to verify the PAE binary.
 
 -------------------------------------------------------------------------------
 ### If you are re-using a previously used (CA) certificate, you will need to add the hashes of the previous GRUB2 binaries exposed to the CVEs to vendor_dbx in shim in order to prevent GRUB2 from being able to chainload those older GRUB2 binaries. If you are changing to a new (CA) certificate, this does not apply.
@@ -182,7 +177,7 @@ New vendor certificate. Updated SHIM to version 15.6.
 -------------------------------------------------------------------------------
 ### What is the SHA256 hash of your final SHIM binary?
 -------------------------------------------------------------------------------
-00e581dd2555990e92e426b850f7962e115750537678bb8eec150783d546bd51
+91e3ec61205e62cd3d26c67b1b4b1f78b0c74edfeaa11e5470a3368bc0b0c71b
 
 -------------------------------------------------------------------------------
 ### How do you manage and protect the keys used in your SHIM?
@@ -202,13 +197,13 @@ Yes.
 SHIM:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-shim,1,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.viasat,1,Viasat UK,shim,15.6,mailto:secalert:viasat.uk.com
+shim,2,UEFI shim,shim,1,https://github.com/rhboot/shim
+shim.viasat,1,Viasat UK,shim,15.6,mailto:secalert@viasat.uk.com
 ```
 PAE:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-viasat.pae,1,Viasat UK,pae,2.0.0,mailto:secalert:viasat.uk.com
+viasat.pae,1,Viasat UK,pae,2.0.0,mailto:secalert@viasat.uk.com
 ```
 
 -------------------------------------------------------------------------------
@@ -224,7 +219,7 @@ No GRUB2 bootloader.
 -------------------------------------------------------------------------------
 ### If your SHIM launches any other components, please provide further details on what is launched.
 -------------------------------------------------------------------------------
-The SHIM launches our Pre-Authentication Environment (PAE) application (custom second-stage loader) which allows an authenticated user to administer and boot Viasat DARC-SSDs.
+The SHIM launches our Pre-Authentication Environment (PAE) application which allows an authenticated user to administer and boot Viasat DARC-SSDs. It does not allow the loading and execution of further code.
 
 -------------------------------------------------------------------------------
 ### If your GRUB2 launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
