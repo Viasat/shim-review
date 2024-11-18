@@ -1,0 +1,73 @@
+Checking build environment ...
+Updating package information ...
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+14 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Installing required packages ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+bsdmainutils is already the newest version (12.1.8).
+cmake is already the newest version (3.28.3-1build7).
+dos2unix is already the newest version (7.5.1-1).
+gcc is already the newest version (4:13.2.0-7ubuntu1).
+g++ is already the newest version (4:13.2.0-7ubuntu1).
+git is already the newest version (1:2.43.0-1ubuntu7.1).
+make is already the newest version (4.3-4.1build2).
+pesign is already the newest version (116-7).
+wget is already the newest version (1.21.4-1ubuntu4.1).
+0 upgraded, 0 newly installed, 0 to remove and 14 not upgraded.
+Cleaning ./output ...
+Building Red Hat shim ...
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/build/_redhat
+/usr/bin/cmake -S/root/build -B/root/build/_redhat --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /root/build/_redhat/CMakeFiles /root/build/_redhat//CMakeFiles/progress.marks
+/usr/bin/gmake  -f CMakeFiles/Makefile2 all
+gmake[1]: Entering directory '/root/build/_redhat'
+/usr/bin/gmake  -f CMakeFiles/shim.dir/build.make CMakeFiles/shim.dir/depend
+gmake[2]: Entering directory '/root/build/_redhat'
+cd /root/build/_redhat && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /root/build /root/build /root/build/_redhat /root/build/_redhat /root/build/_redhat/CMakeFiles/shim.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/root/build/_redhat'
+/usr/bin/gmake  -f CMakeFiles/shim.dir/build.make CMakeFiles/shim.dir/build
+gmake[2]: Entering directory '/root/build/_redhat'
+gmake[2]: Nothing to be done for 'CMakeFiles/shim.dir/build'.
+gmake[2]: Leaving directory '/root/build/_redhat'
+[100%] Built target shim
+gmake[1]: Leaving directory '/root/build/_redhat'
+/usr/bin/cmake -E cmake_progress_start /root/build/_redhat/CMakeFiles 0
+Building Viasat shim ...
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/build/_viasat
+/usr/bin/cmake -S/root/build -B/root/build/_viasat --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /root/build/_viasat/CMakeFiles /root/build/_viasat//CMakeFiles/progress.marks
+/usr/bin/gmake  -f CMakeFiles/Makefile2 all
+gmake[1]: Entering directory '/root/build/_viasat'
+/usr/bin/gmake  -f CMakeFiles/shim.dir/build.make CMakeFiles/shim.dir/depend
+gmake[2]: Entering directory '/root/build/_viasat'
+cd /root/build/_viasat && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /root/build /root/build /root/build/_viasat /root/build/_viasat /root/build/_viasat/CMakeFiles/shim.dir/DependInfo.cmake "--color="
+gmake[2]: Leaving directory '/root/build/_viasat'
+/usr/bin/gmake  -f CMakeFiles/shim.dir/build.make CMakeFiles/shim.dir/build
+gmake[2]: Entering directory '/root/build/_viasat'
+gmake[2]: Nothing to be done for 'CMakeFiles/shim.dir/build'.
+gmake[2]: Leaving directory '/root/build/_viasat'
+[100%] Built target shim
+gmake[1]: Leaving directory '/root/build/_viasat'
+/usr/bin/cmake -E cmake_progress_start /root/build/_viasat/CMakeFiles 0
+Comparing binaries ...
+Extracting Viasat build log ...
+Extracting Viasat shim binary ...
+Comparing Viasat shim binary to tagged release ...
+ad18f6eb26fff69de7d162967512ac3af5accdb9dbbae52152fc76b4a8f8a255  ./output/BOOTX64.EFI
+ad18f6eb26fff69de7d162967512ac3af5accdb9dbbae52152fc76b4a8f8a255  ./data/BOOTX64.EFI
+Checking NX bit ...
+File: ./data/BOOTX64.EFI
+DllCharacteristics: 0x00000000
+NX bit 0x0100: disabled
