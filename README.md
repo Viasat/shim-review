@@ -264,9 +264,9 @@ If your shim binaries can't be reproduced using the provided Dockerfile, please 
 
 If you have Windows 10 with WSL 2 enabled and Python 3 installed, you can run the scripts under `setup/`. Otherwise, you can follow the steps manually to create a VM to perform the reproducible build and run `bash build.sh` from `build/` inside the VM.
 
-- `setup/vm_0_setup.py` - Imports a fresh Ubuntu 24.04.1 LTS into a build VM in WSL 2.
-  - [Ubuntu 24.04.1 LTS rootfs](https://cloud-images.ubuntu.com/wsl/noble/20240905/ubuntu-noble-wsl-amd64-24.04lts.rootfs.tar.gz)
-    - `SHA256=a66c7d1db2a64e727d3cd13767ad8c543290abcc1311f2ae0e46dfc49c0c6277`
+- `setup/vm_0_setup.py` - Imports a fresh Ubuntu 24.04 LTS into a build VM in WSL 2.
+  - [Ubuntu 24.04 LTS rootfs](https://cloud-images.ubuntu.com/wsl/releases/noble/20240423/ubuntu-noble-wsl-amd64-24.04lts.rootfs.tar.gz)
+    - `SHA256=2a790896740b14d637dbdc583cce1ba081ac53b9e9cdb46dc09a2f73abbd9934`
   - `wsl.exe --import` requires at least Windows 10.0.18305.
 
 - `setup/vm_1_build.py` - Imports the `build/` directory into the build VM to perform a reproducible build.
@@ -276,7 +276,7 @@ If you have Windows 10 with WSL 2 enabled and Python 3 installed, you can run th
     - `dos2unix=7.5.1-1`
     - `gcc=4:13.2.0-7ubuntu1`
     - `g++=4:13.2.0-7ubuntu1`
-    - `git=1:2.43.0-1ubuntu7.1`
+    - `git=1:2.43.0-1ubuntu7.2`
     - `make=4.3-4.1build2`
     - `pesign=116-7`
     - `wget=1.21.4-1ubuntu4.1`
@@ -289,17 +289,17 @@ Example PowerShell session:
 WSL> py -3 .\setup\vm_0_setup.py
 wsl.exe --list
 Downloading Ubuntu image...
-Date Thu, 12 Sep 2024 13:30:28 GMT
+Date Mon, 03 Feb 2025 12:56:41 GMT
 Server Apache/2.4.29 (Ubuntu)
-Last-Modified Thu, 05 Sep 2024 20:18:37 GMT
-ETag "157c692f-62164fee8fb37"
+Last-Modified Thu, 25 Apr 2024 17:10:56 GMT
+ETag "15435ed9-616eeded0f590"
 Accept-Ranges bytes
-Content-Length 360474927
+Content-Length 356736729
 Connection close
 Content-Type application/x-gzip
 Verifying Ubuntu image...
 Importing Ubuntu image...
-wsl.exe --import Ubuntu-Viasat E:\WSL\setup\..\temp\ubuntu-viasat E:\WSL\setup\..\temp\ubuntu-viasat.rootfs.tar.gz
+wsl.exe --import Ubuntu-Viasat D:\projects\shim-review\setup\..\temp\ubuntu-viasat D:\projects\shim-review\setup\..\temp\ubuntu-viasat.rootfs.tar.gz
 WSL> py -3 .\setup\vm_1_build.py
 wsl.exe --list
 Importing source ...
@@ -329,7 +329,7 @@ Update shim to address [#682](https://github.com/rhboot/shim/issues/682).
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-ad18f6eb26fff69de7d162967512ac3af5accdb9dbbae52152fc76b4a8f8a255
+ac0c115c3ab7f764e05db7213f772ece8b58a06566a6e5f70d8eddbc756f342a
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?

@@ -2,7 +2,7 @@
 #
 # Filename: vm_0_setup.py
 # Classification: Commercial-In-Confidence
-# Copyright © 2024 Viasat UK
+# Copyright © 2024-2025 Viasat UK
 #
 # All rights reserved
 # The information in this software is subject to change without notice and
@@ -35,7 +35,7 @@ def sha256sum(filename):
 
 def run(cmd):
     print(" ".join(cmd))
-    return subprocess.run(cmd, capture_output=True, check=True)
+    return subprocess.run(cmd, capture_output=True)
 
 setup_dir = os.path.dirname(__file__)
 build_dir = os.path.join(setup_dir, "..", "build")
@@ -43,8 +43,8 @@ temp_dir = os.path.join(setup_dir, "..", "temp")
 if not os.path.exists(temp_dir):
     os.makedirs(temp_dir)
 
-url = "https://cloud-images.ubuntu.com/wsl/noble/20240905/ubuntu-noble-wsl-amd64-24.04lts.rootfs.tar.gz"
-hash_expect = "a66c7d1db2a64e727d3cd13767ad8c543290abcc1311f2ae0e46dfc49c0c6277"
+url = "https://cloud-images.ubuntu.com/wsl/releases/noble/20240423/ubuntu-noble-wsl-amd64-24.04lts.rootfs.tar.gz"
+hash_expect = "2a790896740b14d637dbdc583cce1ba081ac53b9e9cdb46dc09a2f73abbd9934"
 filename = os.path.join(temp_dir, "ubuntu-viasat.rootfs.tar.gz")
 vm_name = "Ubuntu-Viasat"
 vm_path = os.path.join(temp_dir, vm_name.lower())
@@ -60,7 +60,7 @@ if int(win_version.split('.')[2]) < int(win_version_expect.split('.')[2]):
 
 try:
     vm_list = run(["wsl.exe", "--list"])
-    if not vm_name in vm_list.stdout.decode('utf-16'):
+    if not vm_name in vm_list.stdout.decode():
         if not os.path.exists(filename):
             print("Downloading Ubuntu image...")
             path, headers = urlretrieve(url, filename)

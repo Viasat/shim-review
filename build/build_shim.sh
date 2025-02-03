@@ -29,14 +29,14 @@ packages=(
     "dos2unix=7.5.1-1"
     "gcc=4:13.2.0-7ubuntu1"
     "g++=4:13.2.0-7ubuntu1"
-    "git=1:2.43.0-1ubuntu7.1"
+    "git=1:2.43.0-1ubuntu7.2"
     "make=4.3-4.1build2"
     "pesign=116-7"
     "wget=1.21.4-1ubuntu4.1"
 )
 
 echo "Checking build environment ..."
-release_expect="Ubuntu 24.04.1 LTS" 
+release_expect="Ubuntu 24.04 LTS" 
 release="$(lsb_release -d | cut -d':' -f2 | xargs)"
 if [[ ! ${release} =~ ${release_expect} ]] ; then
     echo "error: Ubuntu version mismatch, expected '${release_expect}', got '${release}'"
