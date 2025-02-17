@@ -229,7 +229,7 @@ No Linux kernel.
 ### with Secure Boot enabled?
 Hint: If it does not, we are not likely to sign your shim.
 *******************************************************************************
-[your text here]
+No Linux kernel.
 
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
