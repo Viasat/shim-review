@@ -118,7 +118,7 @@ Make sure that you've verified that your build process uses that file as a sourc
 
 A short guide on verifying public keys and signatures should be available in the [docs](./docs/) directory.
 *******************************************************************************
-Yes. See `build/CMakeLists.txt`.
+Yes. See `CMakeLists.txt`.
 
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to result in your binary:
@@ -145,7 +145,7 @@ See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-
 *******************************************************************************
 NX bit disabled.
 ```
-objdump -p build/data/BOOTX64.EFI | grep DllCharacteristics
+objdump -p data/shimx64.efi | grep DllCharacteristics
 DllCharacteristics      00000000
 ```
 
@@ -264,57 +264,14 @@ Hint: Prefer using *frozen* packages for your toolchain, since an update to GCC,
 
 If your shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case, what the differences would be and what build environment (OS and toolchain) is being used to reproduce this build? In this case please write a detailed guide, how to setup this build environment from scratch.
 *******************************************************************************
+Yes.
 
-- `build/build_shim.sh` - Installs required packages, invokes `cmake`, and compares the built binary `build/output/BOOTX64.EFI` to the reference binary `build/data/BOOTX64.EFI`.
-- `build/build.sh` - Invokes `build_shim.sh` and pipes output to log file `output/build_shim.log`.
-- `build/CMakeLists.txt` - Builds shim twice to compare Viasat shim to Red Hat shim.
-
-If you have Windows 10 with WSL 2 enabled and Python 3 installed, you can run the scripts under `setup/`. Otherwise, you can follow the steps manually to create a VM to perform the reproducible build and run `bash build.sh` from `build/` inside the VM.
-
-- `setup/vm_0_setup.py` - Imports a fresh Ubuntu 24.04 LTS into a build VM in WSL 2.
-  - [Ubuntu 24.04 LTS rootfs](https://cloud-images.ubuntu.com/wsl/releases/noble/20240423/ubuntu-noble-wsl-amd64-24.04lts.rootfs.tar.gz)
-    - `SHA256=2a790896740b14d637dbdc583cce1ba081ac53b9e9cdb46dc09a2f73abbd9934`
-  - `wsl.exe --import` requires at least Windows 10.0.18305.
-
-- `setup/vm_1_build.py` - Imports the `build/` directory into the build VM to perform a reproducible build.
-  - Installs frozen packages:
-    - `bsdmainutils=12.1.8`
-    - `cmake=3.28.3-1build7`
-    - `dos2unix=7.5.1-1`
-    - `gcc=4:13.2.0-7ubuntu1`
-    - `g++=4:13.2.0-7ubuntu1`
-    - `git=1:2.43.0-1ubuntu7.2`
-    - `make=4.3-4.1build2`
-    - `pesign=116-7`
-    - `wget=1.21.4-1ubuntu4.1`
-
-- `setup/vm_2_clean.py` - Unregisters and removes the build VM.
-
-Example PowerShell session:
-
-```powershell
-WSL> py -3 .\setup\vm_0_setup.py
-wsl.exe --list
-Downloading Ubuntu image...
-Date Mon, 03 Feb 2025 12:56:41 GMT
-Server Apache/2.4.29 (Ubuntu)
-Last-Modified Thu, 25 Apr 2024 17:10:56 GMT
-ETag "15435ed9-616eeded0f590"
-Accept-Ranges bytes
-Content-Length 356736729
-Connection close
-Content-Type application/x-gzip
-Verifying Ubuntu image...
-Importing Ubuntu image...
-wsl.exe --import Ubuntu-Viasat D:\projects\shim-review\setup\..\temp\ubuntu-viasat D:\projects\shim-review\setup\..\temp\ubuntu-viasat.rootfs.tar.gz
-WSL> py -3 .\setup\vm_1_build.py
-wsl.exe --list
-Importing source ...
-wsl.exe -d Ubuntu-Viasat -e cp -r ../build /root
-Building shim ...
-wsl.exe -d Ubuntu-Viasat --cd /root/build -e bash build.sh
-Exporting output ...
-wsl.exe -d Ubuntu-Viasat -e cp -r /root/build/output/ ../build
+```bash
+docker build --no-cache --progress=plain -t shim . 2>&1 | tee docker-build.log
+docker create --name shim shim 
+docker cp shim:/root/shim/_viasat/INSTALL/shimx64.efi .
+docker cp shim:/root/shim/_viasat/LOG/shim-build.log .
+docker rm shim
 ```
 
 *******************************************************************************
@@ -322,8 +279,8 @@ wsl.exe -d Ubuntu-Viasat -e cp -r /root/build/output/ ../build
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
 
-- `logs/build_shim.log` - Reproducible build.
-- `logs/viasat-shim-build.log` - Viasat shim build.
+- `logs/docker-build.log` - Reproducible build.
+- `logs/shim-build.log` - Viasat shim build.
 
 *******************************************************************************
 ### What changes were made in the distro's secure boot chain since your SHIM was last signed?
@@ -336,7 +293,7 @@ Update shim to address [#682](https://github.com/rhboot/shim/issues/682).
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-ac0c115c3ab7f764e05db7213f772ece8b58a06566a6e5f70d8eddbc756f342a
+5868bc3c0afab377b1d622e571a82a780277490449d02bd49bcf77e9bbfad207
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?

@@ -2,7 +2,7 @@
 #
 # Filename: CMakeLists.txt
 # Classification: Commercial-In-Confidence
-# Copyright © 2021-2024 Viasat UK
+# Copyright © 2021-2025 Viasat UK
 #
 # All rights reserved
 # The information in this software is subject to change without notice and
@@ -13,8 +13,6 @@
 # must be protected from further distribution and use.  Disclosure to others,
 # use or copying without express written authorisation of Viasat UK, is strictly
 # prohibited.
-#
-# $ProjectSpecificAdditionalRequirements$
 #
 #*******************************************************************************
 cmake_minimum_required(VERSION 3.14)
@@ -29,12 +27,11 @@ option(BUILD_VIASAT "Whether to build Viasat shim" ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 if (BUILD_VIASAT)
-	set(DATA_DIR "data")
 	set(PKG_CERT_NAME viasatuk.der)
 	set(PKG_SBAT_NAME sbat.viasat.csv)
 	set(PKG_PATCH_COMMAND
-		cp ${CMAKE_CURRENT_SOURCE_DIR}/${DATA_DIR}/${PKG_CERT_NAME} . &&
-		cp ${CMAKE_CURRENT_SOURCE_DIR}/${DATA_DIR}/${PKG_SBAT_NAME} data/.)
+		cp ${CMAKE_CURRENT_SOURCE_DIR}/${PKG_CERT_NAME} . &&
+		cp ${CMAKE_CURRENT_SOURCE_DIR}/${PKG_SBAT_NAME} data/.)
 	# gcc ... -DDEFAULT_LOADER='L"\\\\paex64.efi"' ...
 	set(BUILD_ARGS
 		VENDOR_CERT_FILE=${PKG_CERT_NAME}
