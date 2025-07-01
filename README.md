@@ -23,8 +23,7 @@ Here's the template:
 ### What organization or people are asking to have this signed?
 *******************************************************************************
 Organization name and website:  
-Viasat UK Ltd. is a subsidiary of global communications company Viasat Inc.
-https://www.viasat.com/defense
+Viasat UK Ltd. is a subsidiary of global communications company [Viasat Inc.](https://www.viasat.com/defense).
 
 *******************************************************************************
 ### What's the legal data that proves the organization's genuineness?
@@ -34,23 +33,17 @@ Provide the information, which can prove the genuineness with certainty.
 Company/tax register entries or equivalent:  
 (a link to the organization entry in your jurisdiction's register will do)  
 
-NASDAQ: VSAT.
-https://www.nasdaq.com/market-activity/stocks/vsat
+[NASDAQ - VSAT](https://www.nasdaq.com/market-activity/stocks/vsat)
 
 The public details of both your organization and the issuer in the EV certificate used for signing .cab files at Microsoft Hardware Dev Center File Signing Services.  
 (**not** the CA certificate embedded in your shim binary)
 
-Example:
-
-```
-Issuer: O=MyIssuer, Ltd., CN=MyIssuer EV Code Signing CA
-Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
-```
-
-```
+```sh
 Issuer: O=Sectigo Limited, CN=Sectigo Public Code Signing CA EV R.36, C=GB
 Subject: C=US, S=California, O=Viasat, Inc., CN=Viasat, Inc.
 ```
+
+[your text here]
 
 *******************************************************************************
 ### What product or service is this for?
@@ -74,9 +67,10 @@ The security contacts need to be verified before the shim can be accepted. For s
 An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
 You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
 *******************************************************************************
+
 - Name: SecAlert, Viasat
 - Position: Responsible Disclosure
-- Email address: secalert@viasat.uk.com
+- Email address: `secalert@viasat.uk.com`
 - PGP key fingerprint: 1284 0089 74E2 7365 8177  2E28 5C6D 02C9 2AFB 4B25
   - See SecAlert_Viasat.asc
   - Available on PGP Global Directory.
@@ -88,9 +82,10 @@ well known in the Linux community.)
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
 *******************************************************************************
+
 - Name: Customer Support, Viasat
 - Position: General Support
-- Email address: support@viasat.uk.com
+- Email address: `support@viasat.uk.com`
 - PGP key fingerprint: 3FCF 9C5E C75E 930D EE90  525A 8BD1 A937 2266 D44A
   - See Customer_Support_Viasat.asc
   - Available on PGP Global Directory.
@@ -107,7 +102,7 @@ This matches https://github.com/rhboot/shim/releases/tag/16.0 and contains the a
 
 Make sure the tarball is correct by verifying your download's checksum with the following ones:
 
-```
+```sh
 7b518edd63eb840081912f095ed1487a  shim-16.0.tar.bz2
 c2453b9b3c02bc01eea248e9cf634a179ff8828c  shim-16.0.tar.bz2
 d503f778dc75895d3130da07e2ff23d2393862f95b6cd3d24b10cbd4af847217  shim-16.0.tar.bz2
@@ -147,9 +142,11 @@ https://github.com/viasat/shim-review
 Mention all the external patches and build process modifications, which are used during your building process, that make your shim binary be the exact one that you posted as part of this application.
 *******************************************************************************
 `VENDOR_CERT_FILE=viasatuk.der`
+
 - PAE is signed by Viasat UK.
 
 `DEFAULT_LOADER=\\\\\\\\\\\\\\\\paex64.efi`
+
 - Shim shall load PAE only.
 
 *******************************************************************************
@@ -158,8 +155,9 @@ Mention all the external patches and build process modifications, which are used
 See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-shim-community/ba-p/3976522 for more details on the signing of shim without NX bit.
 *******************************************************************************
 NX bit disabled.
-```
-objdump -p data/shimx64.efi | grep DllCharacteristics
+
+```sh
+objdump -p shimx64.efi | grep DllCharacteristics
 DllCharacteristics      00000000
 ```
 
@@ -278,15 +276,7 @@ Hint: Prefer using *frozen* packages for your toolchain, since an update to GCC,
 
 If your shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case, what the differences would be and what build environment (OS and toolchain) is being used to reproduce this build? In this case please write a detailed guide, how to setup this build environment from scratch.
 *******************************************************************************
-Yes.
-
-```bash
-docker build --no-cache --progress=plain -t shim . 2>&1 | tee docker-build.log
-docker create --name shim shim 
-docker cp shim:/root/shim/_viasat/INSTALL/shimx64.efi .
-docker cp shim:/root/shim/_viasat/LOG/shim-build.log .
-docker rm shim
-```
+Yes, see `build.sh`.
 
 *******************************************************************************
 ### Which files in this repo are the logs for your build?
@@ -303,11 +293,12 @@ For example, signing new kernel's variants, UKI, systemd-boot, new certs, new CA
 Skip this, if this is your first application for having shim signed.
 *******************************************************************************
 Update shim to address [#682](https://github.com/rhboot/shim/issues/682).
+Renewed certificate.
 
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-5868bc3c0afab377b1d622e571a82a780277490449d02bd49bcf77e9bbfad207
+`378743b24f76d5ae8c0ba83af03ae26b9f27c75629171bbef3fec2a4c46168b4`
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?
@@ -341,16 +332,20 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 
 Hint: run `objcopy --only-section .sbat -O binary YOUR_EFI_BINARY /dev/stdout` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
 *******************************************************************************
+
 SHIM:
-```
+
+```csv
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.viasat,2,Viasat UK,shim,15.8,mailto:secalert@viasat.uk.com
+shim.viasat,2,Viasat UK,shim,16.0,mailto:secalert@viasat.uk.com
 ```
+
 PAE:
-```
+
+```csv
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-viasat.pae,1,Viasat UK,pae,2.0.0,mailto:secalert@viasat.uk.com
+viasat.pae,1,Viasat UK,pae,2.1.2,mailto:secalert@viasat.uk.com
 ```
 
 *******************************************************************************
@@ -407,7 +402,7 @@ A reasonable timeframe of waiting for a review can reach 2-3 months. Helping us 
 
 For newcomers, the applications labeled as [*easy to review*](https://github.com/rhboot/shim-review/issues?q=is%3Aopen+is%3Aissue+label%3A%22easy+to+review%22) are recommended to start the contribution process.
 *******************************************************************************
-We hope the instructions provided to perform a reproducible build without a Dockerfile are acceptable.
+None.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim signing application.

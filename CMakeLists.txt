@@ -18,8 +18,7 @@
 cmake_minimum_required(VERSION 3.14)
 include(ExternalProject)
 
-set(PACKAGE_NAME shim)
-project(${PACKAGE_NAME})
+project(shim)
 
 option(BUILD_VIASAT "Whether to build Viasat shim" ON)
 
@@ -43,13 +42,14 @@ set(PKG_LOG_DIR ${CMAKE_CURRENT_BINARY_DIR}/LOG)
 set(PKG_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/INSTALL)
 set(PKG_INSTALL_COMMAND cp shimx64.efi ${PKG_INSTALL_DIR})
 
-ExternalProject_Add(${PACKAGE_NAME}
-	URL https://github.com/rhboot/shim/releases/download/15.8/shim-15.8.tar.bz2
-	URL_HASH SHA256=a79f0a9b89f3681ab384865b1a46ab3f79d88b11b4ca59aa040ab03fffae80a9
-	LOG_BUILD 1
+ExternalProject_Add(${PROJECT_NAME}
+	URL https://github.com/rhboot/shim/releases/download/16.0/shim-16.0.tar.bz2
+	URL_HASH SHA256=d503f778dc75895d3130da07e2ff23d2393862f95b6cd3d24b10cbd4af847217
+	LOG_BUILD TRUE
 	LOG_DIR ${PKG_LOG_DIR}
-	LOG_MERGED_STDOUTERR 1
-	BUILD_IN_SOURCE 1
+	LOG_MERGED_STDOUTERR TRUE
+	DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+	BUILD_IN_SOURCE TRUE
 	UPDATE_COMMAND ""
 	PATCH_COMMAND ${PKG_PATCH_COMMAND}
 	CONFIGURE_COMMAND ${PKG_CONFIGURE_COMMAND}

@@ -1,13 +1,14 @@
 #***************************************************************************
 #
-# Filename: Dockerfile
-# Classification: UNCLASSIFIED
-# Description: Docker file for Shim
+# Filename:         Dockerfile
+# Classification:   UNCLASSIFIED
+# Description:      Docker file for Shim
 #
-# Copyright (C) 2021-2025 Viasat, UK Limited.
+# Copyright (C) 2021-2025 Viasat UK
+#
 # All rights reserved.
 # The information in this software is subject to change without notice and
-# should not be construed as a commitment by Viasat, UK Limited.
+# should not be construed as a commitment by Viasat UK.
 #
 # Viasat Proprietary
 # The Proprietary Information provided herein is proprietary to Viasat and
@@ -16,26 +17,20 @@
 # prohibited.
 #
 #***************************************************************************
-FROM debian:stable-20250407-slim
-ENV DEBIAN_FRONTEND=noninteractive
+FROM ubuntu:noble-20250529
 
-RUN \
-    apt update -y \
-    && \
-    apt install -y \
-    bsdmainutils=12.1.8 \
-    cmake=3.25.1-1 \
-    dos2unix=7.4.3-1 \
-    gcc=4:12.2.0-3 \
-    g++=4:12.2.0-3 \
-    git=1:2.39.5-0+deb12u2 \
-    make=4.3-4.1 \
-    pesign=0.112-6 \
-    && \
-    rm -rf /var/lib/apt/lists/*
+RUN sed -i 's/^Types: deb/& deb-src/' /etc/apt/sources.list.d/ubuntu.sources && \
+    apt update -y && \
+    DEBIAN_FRONTEND=noninteractive apt install -y \
+    devscripts=2.23.7 \
+    git-buildpackage=0.9.33 \
+    software-properties-common=0.99.49.2 \
+    cmake=3.28.3-1build7 && \
+    apt build-dep -y shim
 
-WORKDIR /root/shim
-COPY CMakeLists.txt data/viasatuk.der data/sbat.viasat.csv data/shimx64.efi ./
+WORKDIR /shim
+
+COPY CMakeLists.txt data/viasatuk.der data/sbat.viasat.csv shimx64.efi check_nx_bit.sh ./
 
 RUN cmake -B _redhat -D BUILD_VIASAT=OFF && \
     cmake --build _redhat
@@ -49,5 +44,6 @@ RUN hexdump -Cv _redhat/INSTALL/shimx64.efi > redhat_shim.hex && \
 
 RUN sha256sum _viasat/INSTALL/shimx64.efi shimx64.efi
 
-COPY check_nx_bit.sh ./
-RUN ./check_nx_bit.sh _viasat/INSTALL/shimx64.efi
+RUN chmod +x check_nx_bit.sh && ./check_nx_bit.sh shimx64.efi
+
+RUN objcopy --only-section .sbat -O binary shimx64.efi /dev/stdout
