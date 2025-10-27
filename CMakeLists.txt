@@ -43,8 +43,8 @@ set(PKG_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/INSTALL)
 set(PKG_INSTALL_COMMAND cp shimx64.efi ${PKG_INSTALL_DIR})
 
 ExternalProject_Add(${PROJECT_NAME}
-	URL https://github.com/rhboot/shim/releases/download/16.0/shim-16.0.tar.bz2
-	URL_HASH SHA256=d503f778dc75895d3130da07e2ff23d2393862f95b6cd3d24b10cbd4af847217
+	URL https://github.com/rhboot/shim/releases/download/16.1/shim-16.1.tar.bz2
+	URL_HASH SHA256=46319cd228d8f2c06c744241c0f342412329a7c630436fce7f82cf6936b1d603
 	LOG_BUILD TRUE
 	LOG_DIR ${PKG_LOG_DIR}
 	LOG_MERGED_STDOUTERR TRUE

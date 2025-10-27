@@ -277,6 +277,17 @@ If your shim binaries can't be reproduced using the provided Dockerfile, please 
 *******************************************************************************
 Yes, see `build.sh`.
 
+Inventory:
+
+- `CMakeLists.txt` - Configures shim version and build parameters.
+- `Dockerfile` - Installs required packages, invokes CMake, and compares the built shim to the reference shim.
+- `build.sh` - Invokes `Docker` and pipes output to `logs/docker-build.log`. Extracts `logs/shim-build.log` and `shimx64.efi` from Docker image.
+
+Instructions:
+
+1. Run `build.sh` to invoke the Docker build and verify it reproduces `shimx64.efi`.
+    - See `logs/docker-build.log` for checksum comparison.
+
 *******************************************************************************
 ### Which files in this repo are the logs for your build?
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
@@ -297,7 +308,7 @@ Renewed certificate.
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-`378743b24f76d5ae8c0ba83af03ae26b9f27c75629171bbef3fec2a4c46168b4`
+`b8da347cd60df24f778b71557fe0846c1b095d7d08f71ac6d19682a571d7ef9d`
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?

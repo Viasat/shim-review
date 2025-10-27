@@ -24,7 +24,7 @@ RUN sed -i 's/^Types: deb/& deb-src/' /etc/apt/sources.list.d/ubuntu.sources && 
     DEBIAN_FRONTEND=noninteractive apt install -y \
     devscripts=2.23.7 \
     git-buildpackage=0.9.33 \
-    software-properties-common=0.99.49.2 \
+    software-properties-common=0.99.49.3 \
     cmake=3.28.3-1build7 && \
     apt build-dep -y shim
 
